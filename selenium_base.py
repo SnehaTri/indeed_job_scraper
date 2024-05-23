@@ -5,9 +5,14 @@ from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.firefox.firefox_profile import FirefoxProfile as FirefoxProfile
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException, TimeoutException
 import time
 
 # Database tools
@@ -42,6 +47,9 @@ class SeleniumScraper:
     def __setup_firefox(self):
         self.service = FirefoxService(executable_path=GeckoDriverManager().install())
         self.options = FirefoxOptions()
+        self.options.add_argument("--disable-cookies")
+        # self.profile = FirefoxProfile()
+        # self.profile.set_preference("network.cookie.cookieBehavior", 2)
 
     def _setup_browser(self):
         print(f'Setting up {self.browser} browser...')
@@ -90,7 +98,7 @@ class SeleniumScraper:
     
     def go_to_url(self, url):
         self.previous_url = self.current_url
-        self.driver.get(url)                             ####################################################
+        self.driver.get(url)                           ####################################################
         self.current_url = url
     
     def close_browser(self):

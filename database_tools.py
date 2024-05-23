@@ -8,7 +8,7 @@ from logger_config import logger
 
 class DatabaseTools:
     def __init__(self):
-        self.db_name = 'indeed.db'
+        self.db_name = 'karriere.db'
         self.current_directory = os.path.dirname(os.path.abspath(__file__))
         self.database_path = os.path.join(self.current_directory, self.db_name)
         self.ddl_path = os.path.join(self.current_directory, 'ddl.sql')
@@ -125,10 +125,11 @@ class DatabaseTools:
                 job_title, 
                 job_link, 
                 session_id, 
-                job_company
+                job_company,
+                job_location
                 )
-            VALUES (?, ?, ?, ?, ?)
-        ''', (obj['job_unique_id'], obj['job_title'], obj['job_link'], obj['session_id'], obj['job_company']))
+            VALUES (?, ?, ?, ?, ?, ?)
+        ''', (obj['job_unique_id'], obj['job_title'], obj['job_link'], obj['session_id'], obj['job_company'], obj['job_location']))
         self.conn.commit()
         
     def get_postings_by_session(self, session_id):

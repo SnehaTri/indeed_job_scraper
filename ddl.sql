@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS job_postings (
     job_link TEXT,
     job_description TEXT,
     job_company TEXT,
+    job_location TEXT,
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (session_id) REFERENCES search_sessions(id)
 );
